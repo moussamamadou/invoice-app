@@ -1,7 +1,9 @@
+import PrivateLayout from "../components/PrivateLayout"
 
 export default function Home() {
   return (
-    <div >
-    </div>
+    <PrivateLayout>
+      Home page
+    </PrivateLayout>
   )
 }
