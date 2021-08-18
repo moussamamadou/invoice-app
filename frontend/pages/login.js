@@ -9,8 +9,8 @@ export default function Login() {
   const initialValues = { email: '', password: ''};
 
   const loginSchema = Yup.object().shape({
-    email: Yup.string().email('Invalid email').required('Required'),
-    password: Yup.string().min(8, 'Password should have at least 8 character').required('Required')
+    email: Yup.string().email('Email is invalid').required('Email is required'),
+    password: Yup.string().min(8, 'Password should have at least 8 character').required('Password is required')
   })
 
   const onSubmit = (values, {setSubmitting}) => {
@@ -39,11 +39,11 @@ export default function Login() {
               type="password"
               placeholder="Min. 8 character"
             />
-            <button type="submit" className="btn">Login</button>
+            <button type="submit" className="btn-primary">Login</button>
             <p> Not registered yet ? <Link href="/register"><a>Create an account</a></Link></p>
           </Form>
         </Formik>
-        <button type="Submit" class="btn-save">Demo Login</button>
+        <button type="Submit" class="btn-secondary">Demo Login</button>
       </div>
     </PublicLayout>
   )

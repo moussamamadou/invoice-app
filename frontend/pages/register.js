@@ -15,8 +15,9 @@ export default function Register() {
   };
 
   const registerSchema = Yup.object().shape({
-    email: Yup.string().email('Invalid email').required('Required'),
-    password: Yup.string().min(8, 'Password should have at least 8 character').required('Required')
+    username: Yup.string().min(4, 'User Name should have at least 4 character').required('User name is required'),
+    email: Yup.string().email('Email is invalid').required('Email is required'),
+    password: Yup.string().min(8, 'Password should have at least 8 character').required('Password is required')
   })
 
   const onSubmit = (values, {setSubmitting}) => {
@@ -51,8 +52,8 @@ export default function Register() {
               type="password"
               placeholder="Min. 8 character"
             />            
-            <MyAddressInput street="street" postCode="postCode" city="city" country="country"/>
-            <button type="submit" className="btn">Register</button>
+            <MyAddressInput />
+            <button type="submit" className="btn-primary">Register</button>
             <p> All ready registered ? <Link href="/login"><a>Log here</a></Link></p>
           </Form>
         </Formik>
