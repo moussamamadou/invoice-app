@@ -2,16 +2,22 @@ import PublicLayout from "../components/PublicLayout"
 import {MySelect, MyInput, MyAddressInput} from "../components/customField"
 import {Formik, Form, Field, ErrorMessage} from "formik"
 import * as Yup from "yup"
-import Link from "next/link"
+import Link from "next/Link"
+import { withSession } from '../middlewares/session';
+import axios from 'axios';
+import { useRouter } from 'next/router';
 
 export default function Register() {
+  const router = useRouter();
+
   const initialValues = { 
+    username:'',
     email: '', 
     password: '', 
-    street: '', 
-    city: '', 
-    postcode: '', 
-    country: ''
+    // street: '', 
+    // city: '', 
+    // postcode: '', 
+    // country: ''
   };
 
   const registerSchema = Yup.object().shape({
@@ -21,13 +27,24 @@ export default function Register() {
   })
 
   const onSubmit = (values, {setSubmitting}) => {
-    console.log("Register submit!")
+    console.log("Login submit!", values)
+    
+    const body = {
+      username: values.username,
+      email: values.email,
+      password: values.password,
+    };
+
+    axios.post('/api/register', body).then((user) => {
+      router.push('/');
+    }).catch(error => console.log(error));
+
     setSubmitting(false);
   }
   
   return (
     <PublicLayout>
-      <div className="login-container">
+      <div className="register-container">
         <Formik
           initialValues={initialValues}
           validationSchema={registerSchema}
@@ -52,7 +69,7 @@ export default function Register() {
               type="password"
               placeholder="Min. 8 character"
             />            
-            <MyAddressInput />
+            {/* <MyAddressInput /> */}
             <button type="submit" className="btn-primary">Register</button>
             <p> All ready registered ? <Link href="/login"><a>Log here</a></Link></p>
           </Form>
@@ -61,3 +78,14 @@ export default function Register() {
     </PublicLayout>
   )
 }
+
+export const getServerSideProps = withSession((context) => {
+  const { req, res } = context;
+  if(req.session.get('user') ){
+    res.writeHead(302, {
+      Location: '/user'
+    });
+    res.end();
+  }
+  return {props: {}}
+})
