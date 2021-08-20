@@ -1,8 +1,19 @@
 import React from 'react'
 import Head from 'next/Head'
 import Link from 'next/Link'
+import { useRouter } from 'next/router';
+import axios from 'axios';
 
 export default function PublicLayout({children}) {
+    const router = useRouter();
+  
+    const onLogout = (e) => {
+      e.preventDefault();
+      axios.post('/api/logout').then(() => {
+        router.push('/login')
+      })
+    }
+
     return (
         <>
             <Head>
@@ -20,7 +31,8 @@ export default function PublicLayout({children}) {
                 <nav>
                     <ul>
                         <li><a href="#" className="themeToggle"><img src="/assets/icon-moon.svg" alt="Dark Mode" /></a></li>
-                        <li><Link href="/user" className="profileLink"><img src="/assets/image-avatar.jpg" alt="Profile Image" className="profileImage" /></Link></li>
+                        <li><a href="#" className="themeToggle" href="/api/logout" onClick={onLogout}><img src="/assets/icon-logout.svg" alt="Dark Mode" /></a></li>
+                        <li><Link href="/user" className="profileLink"><img src="/assets/image-avatar.jpg" alt="Profile Image" className="profileImage" style={{height:'20px'}}/></Link></li>
                     </ul>                
                 </nav>
             </header>
