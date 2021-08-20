@@ -45,6 +45,11 @@
         "pending",
         "paid"
       ]
+    },
+    "author": {
+      "plugin": "users-permissions",
+      "model": "user",
+      "via": "invoices"
     }
   }
 }

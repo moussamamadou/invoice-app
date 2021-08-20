@@ -62,9 +62,6 @@
     "address": {
       "model": "address"
     },
-    "invoices": {
-      "collection": "invoice"
-    },
     "profileImage": {
       "model": "file",
       "via": "related",
@@ -76,6 +73,10 @@
       "plugin": "upload",
       "required": false,
       "pluginOptions": {}
+    },
+    "invoices": {
+      "via": "author",
+      "collection": "invoice"
     }
   }
 }
