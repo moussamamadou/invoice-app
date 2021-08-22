@@ -5,15 +5,11 @@ import { createStrapiAxios } from '../../utils/strapi';
 export default nc()
   .use(sessionMiddleware)
   .post(async (req, res) => {
-    const { email, username, password } = req.body;
+    const { email, username, password, address } = req.body;
 
     try {
       const user = await createStrapiAxios()
-        .post(`/auth/local/register`, {
-        username,
-          email,
-          password,
-        })
+        .post(`/auth/local/register`, req.body)
         .then((res) => res.data)
         .then((data) => ({
         //   ...data.user,
@@ -40,9 +36,9 @@ export default nc()
         
       const { response: fetchResponse } = error;
       if (fetchResponse) {
-        return res.status(fetchResponse?.status || 500).json(error.response?.data);
+        return res.status(fetchResponse?.status || 500).json("500 - Error : " + error.response?.data);
       }
       
-      res.status(500).json(error);
+      res.status(500).json("500 - Error : " + error);
     }
   });

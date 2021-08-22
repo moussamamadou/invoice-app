@@ -14,10 +14,12 @@ export default function Register() {
     username:'',
     email: '', 
     password: '', 
-    // street: '', 
-    // city: '', 
-    // postcode: '', 
-    // country: ''
+    address: {
+     street: '', 
+     city: '', 
+     postCode: '', 
+     country: '',
+    },
   };
 
   const registerSchema = Yup.object().shape({
@@ -33,6 +35,7 @@ export default function Register() {
       username: values.username,
       email: values.email,
       password: values.password,
+      address: values.address
     };
 
     axios.post('/api/register', body).then((user) => {
@@ -69,7 +72,7 @@ export default function Register() {
               type="password"
               placeholder="Min. 8 character"
             />            
-            {/* <MyAddressInput /> */}
+            <MyAddressInput />
             <button type="submit" className="btn-primary">Register</button>
             <p> All ready registered ? <Link href="/login"><a>Log here</a></Link></p>
           </Form>
