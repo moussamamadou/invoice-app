@@ -30,7 +30,7 @@ function MySelect({label, ...props}) {
 
 
 
-function MyAddressInput({street ='street', postCode ='postCode', city='city', country='country'}) {
+function MyAddressInput({street ='address.street', postCode ='address.postCode', city='address.city', country='address.country'}) {
     return (
         <div className="my-address-input">
             <MyInput 
@@ -57,44 +57,44 @@ function MyAddressInput({street ='street', postCode ='postCode', city='city', co
     )
 }
 
-function MyItemInput({itemList}) {
+function MyItemInput({items}) {
     return (
         <div className="my-item-input">
-            <FieldArray name='itemList'>
+            <FieldArray name='items'>
                 {(arrayHelpers) => (
                     <div>
-                        {itemList && itemList.length > 0 ? (
-                            itemList.map((item, index, tab) =>(
+                        {items && items.length > 0 ? (
+                            items?.map((item, index, tab) =>(
                                 <div className="item-list" key={index}>
                                     <div className="item-list-input">
-                                        {index === 0 ? <label htmlFor={`itemList[${index}].name`}>Item Name</label> : null }
-                                        <Field  name={`itemList[${index}].name`}>
+                                        {index === 0 ? <label htmlFor={`items[${index}].name`}>Item Name</label> : null }
+                                        <Field  name={`items[${index}].name`}>
                                             {({form, field, meta}) => (
                                                 <input  type="text" {...field} className={meta.error && meta.touched ?'error': null}/>
                                             )}   
                                         </Field> 
                                     </div>                                   
                                     <div className="item-list-input">
-                                        {index === 0 ? <label htmlFor={`itemList[${index}].quantity`}>Qty.</label> : null }
-                                        <Field  name={`itemList[${index}].quantity`}  min="1" >
+                                        {index === 0 ? <label htmlFor={`items[${index}].quantity`}>Qty.</label> : null }
+                                        <Field  name={`items[${index}].quantity`}  min="1" >
                                             {({form,field, meta}) => (
                                                 <input type="number" {...field} className={meta.error && meta.touched ? 'error': null}/>
                                             )}   
                                         </Field>                                            
                                     </div>
                                     <div className="item-list-input">
-                                        {index === 0 ? <label htmlFor={`itemList[${index}].price`}>Price</label> : null }
-                                        <Field  name={`itemList[${index}].price`}  min="0">
+                                        {index === 0 ? <label htmlFor={`items[${index}].price`}>Price</label> : null }
+                                        <Field  name={`items[${index}].price`}  min="0">
                                             {({form,field, meta}) => (
                                                 <input type="number" {...field} className={meta.error && meta.touched ? 'error': null}/>
                                             )}                             
                                         </Field>                                        
                                     </div>
                                     <div className="item-list-input">   
-                                        <p className='Total'>{Math.round(itemList[index].price * itemList[index].quantity*100)/100}</p>                               
+                                        <p className='Total'>{Math.round(items[index].price * items[index].quantity*100)/100}</p>                               
                                     </div>
                                     <div className="item-list-input">     
-                                        <button type='button' onClick={() => arrayHelpers.form.values.itemList.length > 0 ? arrayHelpers.remove(index) : null}>
+                                        <button type='button' onClick={() => arrayHelpers.form.values.items.length > 0 ? arrayHelpers.remove(index) : null}>
                                             <img src="/assets/icon-delete.svg" alt="Delete Item" />
                                         </button>                                             
                                     </div>
@@ -102,8 +102,8 @@ function MyItemInput({itemList}) {
                             ))
                         ) : 'No Item'
                         }
-                        {arrayHelpers.form.errors?.itemList && typeof arrayHelpers.form.errors?.itemList === 'string' 
-                            ? <div className="error">{arrayHelpers.form.errors?.itemList}</div> 
+                        {arrayHelpers.form.errors?.items && typeof arrayHelpers.form.errors?.items === 'string' 
+                            ? <div className="error">{arrayHelpers.form.errors?.items}</div> 
                             : null
                         }
                         <button type='button' onClick={() => arrayHelpers.push({ name: '', quantity:1, price: 0.00})}>
