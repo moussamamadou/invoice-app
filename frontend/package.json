@@ -9,8 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "axios": "^0.21.1",
+    "dateformat": "^4.5.1",
     "formik": "^2.2.9",
+    "moment": "^2.29.1",
     "next": "11.1.0",
+    "next-connect": "^0.10.2",
+    "next-iron-session": "^4.2.0",
     "prop-types": "^15.7.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
