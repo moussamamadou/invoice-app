@@ -1,16 +1,10 @@
 {
-  "kind": "collectionType",
-  "collectionName": "addresses",
+  "collectionName": "components_address_addresses",
   "info": {
     "name": "Address",
-    "description": ""
+    "icon": "ad"
   },
-  "options": {
-    "increments": true,
-    "timestamps": true,
-    "draftAndPublish": true
-  },
-  "pluginOptions": {},
+  "options": {},
   "attributes": {
     "street": {
       "type": "string"

@@ -59,9 +59,6 @@
       "plugin": "users-permissions",
       "configurable": false
     },
-    "address": {
-      "model": "address"
-    },
     "profileImage": {
       "model": "file",
       "via": "related",
@@ -77,6 +74,11 @@
     "invoices": {
       "via": "author",
       "collection": "invoice"
+    },
+    "address": {
+      "type": "component",
+      "repeatable": false,
+      "component": "address.address"
     }
   }
 }

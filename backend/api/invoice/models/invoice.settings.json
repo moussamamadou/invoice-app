@@ -32,12 +32,6 @@
     "clientEmail": {
       "type": "email"
     },
-    "address": {
-      "model": "address"
-    },
-    "items": {
-      "collection": "items"
-    },
     "status": {
       "type": "enumeration",
       "enum": [
@@ -47,9 +41,24 @@
       ]
     },
     "author": {
+      "via": "invoices",
       "plugin": "users-permissions",
-      "model": "user",
-      "via": "invoices"
+      "model": "user"
+    },
+    "addressFrom": {
+      "type": "component",
+      "repeatable": false,
+      "component": "address.address"
+    },
+    "addressTo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "address.address"
+    },
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "items.item"
     }
   }
 }

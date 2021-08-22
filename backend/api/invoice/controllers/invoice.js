@@ -20,12 +20,6 @@ module.exports = {
     return sanitizeEntity(entity, { model: strapi.models.invoice });
   },
 
-  /**
-   * Update a record.
-   *
-   * @return {Object}
-   */
-
   async update(ctx) {
     const { id } = ctx.params;
 
@@ -33,7 +27,7 @@ module.exports = {
 
     const [invoice] = await strapi.services.invoice.find({
       id: ctx.params.id,
-      'author.id': ctx.state.user.id,
+      author: ctx.state.user.id,
     });
 
     if (!invoice) {
