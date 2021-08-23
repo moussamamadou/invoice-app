@@ -19,7 +19,6 @@ export default function Login() {
   })
 
   const onSubmit = (values, {setSubmitting}) => {
-    console.log("Login submit!", values)
     
     const body = {
       email: values.email,
@@ -31,6 +30,12 @@ export default function Login() {
     }).catch(error => console.log(error));
 
     setSubmitting(false);
+  }
+
+  const demoLogin = () => {   
+    axios.post('/api/demo-login').then((user) => {
+      router.push('/');
+    }).catch(error => console.log(error));
   }
   
   return (
@@ -58,7 +63,7 @@ export default function Login() {
             <p> Not registered yet ? <Link href="/register"><a>Create an account</a></Link></p>
           </Form>
         </Formik>
-        <button type="Submit" className="btn-secondary">Demo Login</button>
+        <button type="button" className="btn-secondary" onClick={demoLogin}>Demo Login</button>
       </div>
     </PublicLayout>
   )
