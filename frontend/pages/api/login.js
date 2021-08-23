@@ -25,7 +25,7 @@ export default nc()
           strapiToken: data.jwt,
         })).catch(error => console.log("Axios", error))
 
-        console.log(user)
+
       if (!user.confirmed) {
         return res.status(401).json({
           statusCode: 401,

@@ -19,7 +19,7 @@ export async function getInvoices(user) {
     const invoices = await fetchAPI("/invoices", user);
     return invoices;
   }catch (error) {
-    console.log(error);
+    console.log('getInvoice --',error);
   }
 }
 
@@ -28,7 +28,7 @@ export async function getInvoices(user) {
       const invoice = await fetchAPI(`/invoices/${id}`, user);
       return invoice;
     }catch (error) {
-      console.log(error); 
+      console.log('getInvoice by id --',error); 
     }
   }
   
@@ -44,7 +44,6 @@ export async function getInvoices(user) {
   }
   
   export async function updateInvoice(user,id, data) {
-    console.log(data)
     try{
       const response = await createStrapiAxios(user)
         .put(`/invoices/${id}`, data)

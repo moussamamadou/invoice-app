@@ -6,36 +6,7 @@ import { useRouter } from 'next/router';
 import { updateInvoice, addInvoice } from "../pages/api/invoice"
 
 const now = () => `${new Date().getFullYear()}-${('0' + new Date().getMonth()).slice(-2)}-${new Date().getDate()}`
-
-const initialValues = { 
-  addressFrom: {
-   street: "", 
-   city: "", 
-   postCode: '', 
-   country: '',
-  },
-  addressTo:{         
-   street: '', 
-   city: '', 
-   postCode: '', 
-   country: '',
-  },
-  clientName: '',
-  clientEmail: '',
-  invoiceDate: now(),
-  paymentTerms: 1,
-  projectDescription: '',
-  items: [
-    { 
-      name: '', 
-      quantity:1, 
-      price: 0.00
-    }
-  ],
-  status: 'draft',  
-  reference: '',
-  author: {id : ''}
-};
+const randomRef = () => (Math.random().toString(36).substring(2,4) +(Math.floor(Math.random() * 10000) + 10000).toString().substring(1)).toUpperCase()
 
 const invoiceSchema = Yup.object().shape({
   clientName: Yup.string().min(4, 'At 4 least Character').required(`Client's name is required`),
@@ -62,64 +33,47 @@ export default function InvoiceEditor({isNew, invoice, user }) {
   const [typeEditor, setTypeEditor] = useState('add');
 
   let invoiceValue;
-  if (invoice){
-     invoiceValue = { 
-       addressFrom: {
-        street: invoice.addressFrom?.street || '', 
-        city: invoice.addressFrom?.city || '', 
-        postCode: invoice.addressFrom?.postCode || '', 
-        country: invoice.addressFrom?.country || '',
-       },
-       addressTo:{         
-        street: invoice.addressTo?.street || '', 
-        city: invoice.addressTo?.city || '', 
-        postCode: invoice.addressTo?.postCode || '', 
-        country: invoice.addressTo?.country || '',
-       },
-      clientName: invoice.clientName,
-      clientEmail: invoice.clientEmail,
-      invoiceDate: invoice.invoiceDate,
-      paymentTerms: invoice.paymentTerms,
-      projectDescription: invoice.projectDescription,
-      items: invoice.items?.map(item => ({
-        name: item.name,
-        quantity: item.quantity,
-        price: item.price
-      })),
-      status: invoice.status,
-      reference: invoice.reference,
-      id: invoice.id,
-      author: {id : invoice.author.id},
-    };
-  }else {
-     invoiceValue = initialValues;
-     invoiceValue.author.id = user.id;
-  }
-
-
+    invoiceValue = { 
+      addressFrom: {
+      street: invoice?.addressFrom?.street || '', 
+      city: invoice?.addressFrom?.city || '', 
+      postCode: invoice?.addressFrom?.postCode || '', 
+      country: invoice?.addressFrom?.country || '',
+      },
+      addressTo:{         
+      street: invoice?.addressTo?.street || '', 
+      city: invoice?.addressTo?.city || '', 
+      postCode: invoice?.addressTo?.postCode || '', 
+      country: invoice?.addressTo?.country || '',
+      },
+    clientName: invoice?.clientName || '',
+    clientEmail: invoice?.clientEmail || '',
+    invoiceDate: invoice?.invoiceDate || now(),
+    paymentTerms: invoice?.paymentTerms || 30,
+    projectDescription: invoice?.projectDescription || '',
+    items: invoice?.items?.map(item => ({
+      name: item.name,
+      quantity: item.quantity,
+      price: item.price
+    })) || [{ 
+      name: '', 
+      quantity:1, 
+      price: 0.00
+    }],
+    status: invoice?.status || 'draft',
+    reference: invoice?.reference || '',
+    id: invoice?.id || '',
+    author: {id : invoice?.author?.id || ''},
+  };
 
   const handleSubmit = (values, {setSubmitting, resetForm}) => {
         
-    const data = {
-      addressFrom : values.addressFrom,
-      addressTo : values.addressTo,
-      clientName: values.clientName,
-      clientEmail: values.clientEmail,
-      invoiceDate: values.invoiceDate,
-      paymentTerms: values.paymentTerms,      
-      projectDescription: values.projectDescription,
-      reference: values.reference,
-      status: values.status,
-      author: values.author,
-      items: values.items
-    }
-
     if (typeEditor === 'add'){
-      const response = addInvoice(user, data)
+      const response = addInvoice(user, values)
         .then(res => router.push(`/invoice/${res.id}`))
         .catch(error => console.log(res))   
     } else if (typeEditor === 'update'){
-      const response = updateInvoice(user, values.id, data)
+      const response = updateInvoice(user, values.id, values)
         .then(res => router.reload(`/invoice/${values.id}`))
         .catch(error => console.log(res))   
     }
@@ -192,7 +146,7 @@ export default function InvoiceEditor({isNew, invoice, user }) {
                       className="btn-primary" 
                       onClick={() => {
                         setTypeEditor('add');
-                        props.setFieldValue('reference',(Math.random().toString(36).substring(2,4) +(Math.floor(Math.random() * 10000) + 10000).toString().substring(1)).toUpperCase());
+                        props.setFieldValue('reference', randomRef());
                         props.setFieldValue('status', 'draft')
                       }}
                     >
@@ -203,7 +157,7 @@ export default function InvoiceEditor({isNew, invoice, user }) {
                       className="btn-primary" 
                       onClick={() => {
                         setTypeEditor('add');
-                        props.setFieldValue('reference',(Math.random().toString(36).substring(2,4) +(Math.floor(Math.random() * 10000) + 10000).toString().substring(1)).toUpperCase());
+                        props.setFieldValue('reference',randomRef());
                         props.setFieldValue('status', 'pending')
                       }}
                     >
