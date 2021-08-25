@@ -1,14 +1,16 @@
 import React from "react"
 import PublicLayout from "../components/PublicLayout"
-import {MySelect, MyInput} from "../components/customField"
-import {Formik, Form, Field, ErrorMessage} from "formik"
+import ThemeProvider from "../components/ThemeProvider";
+import {MyInput} from "../components/customField"
+import {Formik, Form} from "formik"
 import * as Yup from "yup"
 import Link from "next/Link"
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { withSession } from '../middlewares/session';
+import { parseCookies } from "../utils/parseCookies";
 
-export default function Login() {
+export default function Login({themeDarkInitial}) {
   const router = useRouter();
 
   const initialValues = { email: '', password: ''};
@@ -18,8 +20,7 @@ export default function Login() {
     password: Yup.string().min(8, 'Password should have at least 8 character').required('Password is required')
   })
 
-  const onSubmit = (values, {setSubmitting}) => {
-    
+  const onSubmit = (values, {setSubmitting}) => {    
     const body = {
       email: values.email,
       password: values.password,
@@ -39,43 +40,56 @@ export default function Login() {
   }
   
   return (
-    <PublicLayout>
-      <div className="login-container">
-        <Formik
-          initialValues={initialValues}
-          validationSchema={loginSchema}
-          onSubmit={onSubmit}
-        >
-          <Form>
-            <MyInput 
-              label="Email"
-              name="email"
-              type="email"
-              placeholder="johndoe@email.com"
-            />
-            <MyInput 
-              label="Password"
-              name="password"
-              type="password"
-              placeholder="Min. 8 character"
-            />
-            <button type="submit" className="btn-primary">Login</button>
-            <p> Not registered yet ? <Link href="/register"><a>Create an account</a></Link></p>
-          </Form>
-        </Formik>
-        <button type="button" className="btn-secondary" onClick={demoLogin}>Demo Login</button>
-      </div>
-    </PublicLayout>
+    <ThemeProvider themeDarkInitial={themeDarkInitial}>
+      <PublicLayout>
+        <div className="login-container">
+          <div className="logo-wrapper">
+            <img src="/assets/logo.svg" alt="logo" className="logoImage" />
+          </div>
+          <h2>Invoice App</h2>
+          
+
+          <Formik
+            initialValues={initialValues}
+            validationSchema={loginSchema}
+            onSubmit={onSubmit}
+          >
+            <Form>
+              <MyInput 
+                label="Email"
+                name="email"
+                type="email"
+                placeholder="johndoe@email.com"
+              />
+              <MyInput 
+                label="Password"
+                name="password"
+                type="password"
+                placeholder="Min. 8 character"
+              />
+              <button type="submit" className="btn-primary">Login</button>
+              <p> Not registered yet ? <Link href="/register"><a>Create an account</a></Link></p>
+            </Form>
+          </Formik>
+          <button type="button" className="btn-delete" onClick={demoLogin}>Demo Login</button>
+        </div>
+      </PublicLayout>
+    </ThemeProvider>
   )
 }
 
-export const getServerSideProps = withSession((context) => {
+export const getServerSideProps = withSession((context) => {  
   const { req, res } = context;
+  const cookies = parseCookies(req);
   if(req.session.get('user') ){
     res.writeHead(302, {
       Location: '/user'
     });
     res.end();
   }
-  return {props: {}}
+  return {
+    props: {
+      themeDarkInitial: cookies.themeDark || false
+    }
+  }
 })

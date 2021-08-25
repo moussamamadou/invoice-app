@@ -1,15 +1,17 @@
 import PrivateLayout from "../components/PrivateLayout"
-import {MySelect, MyInput, MyAddressInput} from "../components/customField"
-import {Formik, Form, Field, ErrorMessage} from "formik"
+import ThemeProvider from "../components/ThemeProvider";
+import {MyInput, MyAddressInput} from "../components/customField"
+import {Formik, Form} from "formik"
 import * as Yup from "yup"
 import { withSession } from '../middlewares/session';
+import { parseCookies } from "../utils/parseCookies";
 import axios from 'axios'
 import { useRouter } from 'next/router';
 
 export default function User(props) {
   const router = useRouter();
 
-  const {user} = props;
+  const {user, themeDarkInitial} = props;
 
   const initialValues = { 
     id: user.id,
@@ -48,48 +50,57 @@ export default function User(props) {
   }
 
   return (
-    <PrivateLayout>
-      <h1> User Page</h1>    
-      
-      <img src="/assets/image-avatar.jpg" alt="logo" className="Profile Picture" />
-      <div className="user-container">
-        <Formik
-          initialValues={initialValues}
-          validationSchema={registerSchema}
-          onSubmit={onSubmit}
-        >
-          <Form>
-            <MyInput 
-              label="Name *"
-              name="username"
-              type="text"
-              placeholder="John Doe"
-            />
-            {/* <MyInput 
-              label="Email *"
-              name="email"
-              type="email"
-              placeholder="johndoe@email.com"
-            /> */}
-            {/* <MyInput 
-              label="Password *"
-              name="password"
-              type="password"
-              placeholder="Min. 8 character"
-            />             */}
-            <MyAddressInput />
-            {/* <button type="submit" className="btn-primary">Update Profile</button> */}
-            <button type="submit" className="btn-primary">Update</button>
+    <ThemeProvider themeDarkInitial={themeDarkInitial}>
+      <PrivateLayout>     
+        <div className="user">
+          <div className="back-link">
+              <a href="#" onClick={() => router.push("/")}>
+                  <img src="/assets/icon-arrow-left.svg" alt="" className="icon-arrow-left" /> Go back    
+              </a>                 
+          </div>
+          <div className="user-container">
+          
+          {/* <img src="/assets/image-avatar.jpg" alt="logo" className="Profile Picture" /> */}
+            <Formik
+              initialValues={initialValues}
+              validationSchema={registerSchema}
+              onSubmit={onSubmit}
+            >
+              <Form>
+                <MyInput 
+                  label="Name *"
+                  name="username"
+                  type="text"
+                  placeholder="John Doe"
+                />
+                {/* <MyInput 
+                  label="Email *"
+                  name="email"
+                  type="email"
+                  placeholder="johndoe@email.com"
+                /> */}
+                {/* <MyInput 
+                  label="Password *"
+                  name="password"
+                  type="password"
+                  placeholder="Min. 8 character"
+                />             */}
+                <MyAddressInput />
+                {/* <button type="submit" className="btn-primary">Update Profile</button> */}
+                <button type="submit" className="btn-primary">Update</button>
 
-          </Form>
-        </Formik>
-      </div>
-    </PrivateLayout>
+              </Form>
+            </Formik>
+          </div>
+        </div>   
+      </PrivateLayout>
+    </ThemeProvider>
   )
 }
 
 export const getServerSideProps = withSession((context) => {
   const { req, res } = context;
+  const cookies = parseCookies(req);
 
   if(req.session.get('user') === undefined || req.session.get('user') === null){
     res.writeHead(302, {
@@ -100,6 +111,7 @@ export const getServerSideProps = withSession((context) => {
   return {
     props: {
       user: req.session.get('user') || null,
+      themeDarkInitial: cookies.themeDark || false
     }
   }
 })

@@ -29,32 +29,34 @@ export default function InvoiceList({invoices, selected}) {
                 {filteredInvoices
                     .map((invoice, key) => (
                         <Link href={`/invoice/${invoice.id}`} key={key}>
-                            <a>
-                                <div className="invoice-item">
-                                    <h4>{invoice.reference}</h4>
+                            <a className="invoice-item">
+                                <div className="invoice-item-detail">
+                                    <h4>#{invoice.reference}</h4>
                                 </div>
-                                <div className="invoice-item">
+                                <div className="invoice-item-detail">
                                     <p>Due <time dateTime="2018-07-07">{moment(new Date(invoice.invoiceDate)).add(invoice.paymentTerms, 'days').format('DD MMM yyyy')}</time></p>
                                 </div> 
-                                <div className="invoice-item">
+                                <div className="invoice-item-detail">
                                     <p>{invoice.username}</p>
                                 </div>
-                                <div className="invoice-item">
+                                <div className="invoice-item-detail">
                                     <h4>€ 
                                         {
-                                            invoice.items.reduce((acc, curr) => {
-                                                return (acc) + (curr.quantity*curr.price)
-                                            }, 0)
+                                            (invoice.items.reduce((acc, curr) => {
+                                                return Math.round(((acc) + (curr.quantity*curr.price) + Number.EPSILON) * 100) / 100
+                                            }, 0)).toFixed(2)
                                         } 
                                     </h4>
                                 </div>
-                                <div className="invoice-item">
-                                    <div className="invoice-status paid">
-                                        <span className="circle"></span> 
-                                        {invoice.status}
+                                <div className="invoice-item-detail">
+                                    <div className={`invoice-status ${invoice.status}`}>
+                                        <svg height="10" width="10">
+                                            <circle cx="5" cy="5" r="3"/>
+                                        </svg> 
+                                        {invoice.status[0].toUpperCase() + invoice.status.substring(1)}
                                     </div>
                                 </div>
-                                <div className="invoice-item">
+                                <div className="invoice-item-detail">
                                     <img src="/assets/icon-arrow-right.svg" alt="" className="icon-arrow-right"/>
                                 </div>
                             </a>
@@ -64,9 +66,11 @@ export default function InvoiceList({invoices, selected}) {
                 {
                     filteredInvoices.length === 0 ? 
                         <div className="is-empty">
-                            <img src="/assets/illustration-empty.svg" alt="" />
-                            <h2>There is nothing here</h2>
-                            <p>Create an invoice by clicking the New Invoice button and get started</p>
+                            <div className="is-empty-container">
+                                <img src="/assets/illustration-empty.svg" alt="" />
+                                <h2>There is nothing here</h2>
+                                <p>Create an invoice by clicking the New Invoice button and get started</p>
+                            </div>
                         </div>
                         : null
                 }

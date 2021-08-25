@@ -1,13 +1,15 @@
 import PublicLayout from "../components/PublicLayout"
-import {MySelect, MyInput, MyAddressInput} from "../components/customField"
-import {Formik, Form, Field, ErrorMessage} from "formik"
+import ThemeProvider from "../components/ThemeProvider";
+import {MyInput, MyAddressInput} from "../components/customField"
+import {Formik, Form} from "formik"
 import * as Yup from "yup"
 import Link from "next/Link"
 import { withSession } from '../middlewares/session';
+import { parseCookies } from "../utils/parseCookies";
 import axios from 'axios';
 import { useRouter } from 'next/router';
 
-export default function Register() {
+export default function Register({themeDarkInitial}) {
   const router = useRouter();
 
   const initialValues = { 
@@ -29,16 +31,7 @@ export default function Register() {
   })
 
   const onSubmit = (values, {setSubmitting}) => {
-    console.log("Login submit!", values)
-    
-    const body = {
-      username: values.username,
-      email: values.email,
-      password: values.password,
-      address: values.address
-    };
-
-    axios.post('/api/register', body).then((user) => {
+        axios.post('/api/register', values).then((user) => {
       router.push('/');
     }).catch(error => console.log(error));
 
@@ -46,49 +39,60 @@ export default function Register() {
   }
   
   return (
-    <PublicLayout>
-      <div className="register-container">
-        <Formik
-          initialValues={initialValues}
-          validationSchema={registerSchema}
-          onSubmit={onSubmit}
-        >
-          <Form>
-            <MyInput 
-              label="Name *"
-              name="username"
-              type="text"
-              placeholder="John Doe"
-            />
-            <MyInput 
-              label="Email *"
-              name="email"
-              type="email"
-              placeholder="johndoe@email.com"
-            />
-            <MyInput 
-              label="Password *"
-              name="password"
-              type="password"
-              placeholder="Min. 8 character"
-            />            
-            <MyAddressInput />
-            <button type="submit" className="btn-primary">Register</button>
-            <p> All ready registered ? <Link href="/login"><a>Log here</a></Link></p>
-          </Form>
-        </Formik>
-      </div>
-    </PublicLayout>
+    <ThemeProvider themeDarkInitial={themeDarkInitial}>
+      <PublicLayout>
+        <div className="register-container">
+          <div className="logo-wrapper">
+            <img src="/assets/logo.svg" alt="logo" className="logoImage" />
+          </div>
+          <h2>Invoice App</h2>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={registerSchema}
+            onSubmit={onSubmit}
+          >
+            <Form>
+              <MyInput 
+                label="Name *"
+                name="username"
+                type="text"
+                placeholder="John Doe"
+              />
+              <MyInput 
+                label="Email *"
+                name="email"
+                type="email"
+                placeholder="johndoe@email.com"
+              />
+              <MyInput 
+                label="Password *"
+                name="password"
+                type="password"
+                placeholder="Min. 8 character"
+              />            
+              <MyAddressInput />
+              <button type="submit" className="btn-primary">Register</button>
+              <p> All ready registered ? <Link href="/login"><a>Log here</a></Link></p>
+            </Form>
+          </Formik>
+        </div>
+      </PublicLayout>
+    </ThemeProvider>
   )
 }
 
 export const getServerSideProps = withSession((context) => {
   const { req, res } = context;
+  const cookies = parseCookies(req);
   if(req.session.get('user') ){
     res.writeHead(302, {
       Location: '/user'
     });
     res.end();
   }
-  return {props: {}}
+  return {
+    props:{
+      themeDarkInitial: cookies.themeDark || false
+    }
+  }
 })
