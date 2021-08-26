@@ -6,7 +6,9 @@ import { useRouter } from 'next/router';
 import { updateInvoice, addInvoice } from "../pages/api/invoice"
 import Modal from 'react-modal';
 import {ThemeContext} from "./ThemeProvider";
-import ShadowScrollbars from './ShadowScrollbars';
+import { Scrollbars } from 'rc-scrollbars';
+
+Modal.setAppElement('#__next');
 
 const now = () => `${new Date().getFullYear()}-${('0' + new Date().getMonth()).slice(-2)}-${new Date().getDate()}`
 const randomRef = () => (Math.random().toString(36).substring(2,4) +(Math.floor(Math.random() * 10000) + 10000).toString().substring(1)).toUpperCase()
@@ -128,51 +130,53 @@ export default function InvoiceEditor({isNew, invoice, user, editorModalIsOpen, 
               onSubmit={handleSubmit}
             >
               {({values, ...props}) => (
-                  <Form>             
-                    <ShadowScrollbars style={{height:'100%', padding: '15px 60px'}}>          
-                      <h4 className="color-primary">Bill From</h4>
-                      <MyAddressInput 
-                        street="addressFrom.street" 
-                        postCode="addressFrom.postCode" 
-                        city="addressFrom.city" 
-                        country="addressFrom.country" 
-                      />
-                      <h4 className="color-primary">Bill To</h4>
-                      <MyInput 
-                        label="Client's Name"
-                        name="clientName"
-                        type="text"
-                      />
-                      <MyInput 
-                        label="Client's Email"
-                        name="clientEmail"
-                        type="email"
-                      />
-                      <MyAddressInput 
-                        street="addressTo.street" 
-                        postCode="addressTo.postCode" 
-                        city="addressTo.city" 
-                        country="addressTo.country"
-                      />
-                      <div className="my-date-input">
+                  <Form>    
+                    <Scrollbars style={{ width: '100%',height:'100%'}}>
+                      <div className="inside-scrollbar">
+                        <h4 className="color-primary">Bill From</h4>
+                        <MyAddressInput 
+                          street="addressFrom.street" 
+                          postCode="addressFrom.postCode" 
+                          city="addressFrom.city" 
+                          country="addressFrom.country" 
+                        />
+                        <h4 className="color-primary">Bill To</h4>
+                        <MyInput 
+                          label="Client's Name"
+                          name="clientName"
+                          type="text"
+                        />
+                        <MyInput 
+                          label="Client's Email"
+                          name="clientEmail"
+                          type="email"
+                        />
+                        <MyAddressInput 
+                          street="addressTo.street" 
+                          postCode="addressTo.postCode" 
+                          city="addressTo.city" 
+                          country="addressTo.country"
+                        />
+                        <div className="my-date-input">
+                          <MyInput
+                            label="Issue Date"
+                            name="invoiceDate"
+                            type="date"
+                          />
+                          <MySelect 
+                            label='Payments Terms'
+                            name='paymentTerms'
+                          />
+                        </div>
                         <MyInput
-                          label="Issue Date"
-                          name="invoiceDate"
-                          type="date"
+                          label="Project Description"
+                          name="projectDescription"
+                          type="text"
                         />
-                        <MySelect 
-                          label='Payments Terms'
-                          name='paymentTerms'
-                        />
+                        <h3>Item List</h3> 
+                        <MyItemInput items={values.items}/>
                       </div>
-                      <MyInput
-                        label="Project Description"
-                        name="projectDescription"
-                        type="text"
-                      />
-                      <h3>Item List</h3> 
-                      <MyItemInput items={values.items}/>
-                    </ShadowScrollbars>
+                    </Scrollbars>
                     {
                       isNew ? 
                         <div className="btn-primary-wrapper">

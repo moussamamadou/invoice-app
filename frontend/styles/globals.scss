@@ -792,7 +792,9 @@ a.invoice-item{
         margin-bottom: 20px;
     }
 }
-
+.inside-scrollbar{
+    padding: 15px 60px;
+}
 @media (max-width: 680px){
     body {
         font-size: 10px;
@@ -812,7 +814,8 @@ a.invoice-item{
                 &:last-child{
                     border-top: 0;
                     border-left: 1px solid;
-                    border-color: var(--user-bg);
+                    border-color: var(--secondary-color-hover);
+                    width: 100px;
                 }
             }
         }
@@ -1022,5 +1025,9 @@ a.invoice-item{
         .invoice-sendto{
             grid-area: invoice-sendto;
         }
+    }    
+    
+    .inside-scrollbar{
+        padding: 15px 30px;
     }
 }
