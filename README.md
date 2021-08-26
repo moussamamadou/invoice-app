@@ -46,12 +46,12 @@ Users should be able to:
 
 This is the first project I built with Next.js and Strapi. 
 - Next.js
-...The front-end is done with Next.js
-...I use the server side rendering for all the pages and the 404 page is static server rendering
+  - The front-end is done with Next.js
+  - I use the server side rendering for all the pages and the 404 page is static server rendering
 
 - Strapi
-...The back-end is done with Strapi.
-...I use the default REST API to create my API
+  - The back-end is done with Strapi.
+  - I use the default REST API to create my API
 
 ## Author
 
