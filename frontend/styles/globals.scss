@@ -235,8 +235,10 @@ main{
     }
     .home-header-action{
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-end;
         gap: 30px;
+        flex-wrap: wrap;
+        width: 100%;
     }
     .back-link{
         img{
@@ -377,8 +379,7 @@ select{
     padding: 0 20px;
     img{
         background-color: var(--default-color);
-        margin-right: 10px ;
-        padding: 5px;
+        padding: 5px!important ;
         border-radius: 50%;
     }
     &:hover{
@@ -792,13 +793,13 @@ a.invoice-item{
     }
 }
 
-@media (max-width: 620px){
+@media (max-width: 680px){
     body {
         font-size: 10px;
     }
     header{
         height: 100px;
-        width: 100vw;
+        width: 100%;
         flex-direction: row;
         position: pixed;
         border-radius: 0;
@@ -808,12 +809,16 @@ a.invoice-item{
             }
             li{
                 width: 75px;
+                &:last-child{
+                    border-top: 0;
+                    border-left: 1px solid;
+                    border-color: var(--user-bg);
+                }
             }
         }
     }
     main{
         padding: 125px 25px 25px 25px ;
-        min-width: 100vw;
     }
     .rmsc.multi-select{
         width: 150px;
@@ -827,9 +832,15 @@ a.invoice-item{
                 margin-bottom: 15px;
             }
         }
+        .home-header-action{
+            justify-content: space-between;
+        }
     }
     button{
         font-size: 11px;
+    }
+    .login-container, .register-container{
+        margin: 0;
     }
     .color-primary{
         margin: 10px 0;
@@ -951,6 +962,10 @@ a.invoice-item{
             width: 100%;
             justify-content: space-between;
         }
+    }
+    .invoice-item-detail{
+        display: flex;
+        justify-content: center;
     }
     .invoice-detail{
         margin-bottom: 75px;
