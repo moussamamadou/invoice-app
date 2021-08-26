@@ -21,11 +21,11 @@ Users should be able to:
 
   Light Mode
 
-![](./public/screenshot-invoice-app-light.png)
+![](./frontend/public/screenshot-invoice-app-light.png)
 
   Dark Mode
 
-![](./public/screenshot-invoice-app-dark.png)
+![](./frontend/public/screenshot-invoice-app-dark.png)
 
 ### Links
 
