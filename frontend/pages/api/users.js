@@ -22,7 +22,6 @@ export default nc()
           strapiToken: req.session.get('user').strapiToken,
         })).catch(error => console.error(`Axios PUT /users/${id} - `, error))
 
-        console.log("rrrr", user)
       req.session.set('user', user);
       await req.session.save();
       res.json(user);

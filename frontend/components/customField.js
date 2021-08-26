@@ -132,7 +132,6 @@ function MyItemInput({items}) {
 
 const MyModal = ({deleteModalIsOpen, setDeleteIsOpen, handleDelete, id}) => {
     const theme = useContext(ThemeContext);
-    console.log(theme)
 
     function openDeleteModal() {
         setDeleteIsOpen(true);

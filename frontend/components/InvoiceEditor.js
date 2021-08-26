@@ -43,7 +43,7 @@ export default function InvoiceEditor({isNew, invoice, user, editorModalIsOpen, 
     }else {
       setTypeEditor('update');
     }
-  }, [typeEditor]);
+  }, [isNew]);
 
   let invoiceValue;
     invoiceValue = { 
@@ -85,16 +85,25 @@ export default function InvoiceEditor({isNew, invoice, user, editorModalIsOpen, 
     }
     if (typeEditor === 'add'){
       const response = addInvoice(user, values)
-        .then(res => router.push(`/invoice/${res.id}`))
-        .catch(error => console.log(error))   
+        .then(res => {
+          router.push(`/invoice/${res.id}`);
+          setSubmitting(false);
+          resetForm();    
+        })
+        .catch(error => {
+          console.log(error);
+          setSubmitting(false);
+          resetForm();    
+        })   
     } else if (typeEditor === 'update'){
       const response = updateInvoice(user, values.id, values)
-        .then(res => router.reload(`/invoice/${values.id}`))
+        .then(res => {
+          router.reload(`/invoice/${values.id}`);
+          setSubmitting(false);
+          resetForm();    
+        })
         .catch(error => console.log(error))   
     }
-
-    setSubmitting(false);
-    resetForm();    
   }
 
   const theme = useContext(ThemeContext);
@@ -183,7 +192,7 @@ export default function InvoiceEditor({isNew, invoice, user, editorModalIsOpen, 
                           <button 
                             type="button"
                             className="btn-default" 
-                            onClick={() => {setEditorModalIsOpen(false); props.resetForm()}}
+                            onClick={() => {setEditorModalIsOpen(false);}}
                           >
                             Discard</button>
                           <button 
@@ -212,7 +221,7 @@ export default function InvoiceEditor({isNew, invoice, user, editorModalIsOpen, 
                           <button 
                             type="button" 
                             className="btn-default" 
-                            onClick={() => {setEditorModalIsOpen(false); props.resetForm()}}
+                            onClick={() => {setEditorModalIsOpen(false);}}
                           >
                             Cancel
                           </button>

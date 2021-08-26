@@ -35,7 +35,6 @@ export default function User(props) {
   })
 
   const onSubmit = (values, {setSubmitting}) => {
-    console.log("Update User info.")
     const body = {
       id : values.id,
       username: values.username,
