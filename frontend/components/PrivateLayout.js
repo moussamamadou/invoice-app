@@ -54,11 +54,9 @@ export default function PrivateLayout({children}) {
                             </a>
                         </li>
                         <li>
-                            <Link  href="/api/logout">
-                                <a className="themeToggle" onClick={onLogout}>
-                                    <Image src={logoutImg} alt="Log out" width={30} height={30}/>
-                                </a>
-                            </Link>
+                            <a className="themeToggle" onClick={onLogout}>
+                                <Image src={logoutImg} alt="Log out" width={30} height={30}/>
+                            </a>
                         </li>
                         <li>
                             <Link href="/user" >
