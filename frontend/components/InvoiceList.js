@@ -24,7 +24,7 @@ export default function InvoiceList({invoices, selected}) {
                 }                        
             } 
         ))
-    }, [invoices])
+    }, [invoices, selected])
     
     return (
         <div className="invoice-list">
