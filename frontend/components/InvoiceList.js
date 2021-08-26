@@ -1,5 +1,5 @@
 import React , {useState, useRef, useEffect} from 'react'
-import Link from 'next/Link'
+import Link from 'next/link'
 import Image from 'next/image'
 import moment from 'moment'
 import arrowImg from '../public/assets/icon-arrow-right.svg'

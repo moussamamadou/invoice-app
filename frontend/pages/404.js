@@ -1,4 +1,4 @@
-import Link from 'next/Link'
+import Link from 'next/link'
 import Image from 'next/image'
 import PublicLayout from "../components/PublicLayout"
 import isEmptyImg from '../public/assets/illustration-empty.svg'

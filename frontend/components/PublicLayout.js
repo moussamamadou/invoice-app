@@ -1,6 +1,5 @@
 import React from 'react'
-import Head from 'next/Head'
-import Link from 'next/Link'
+import Head from 'next/head'
 
 export default function PublicLayout({children}) {
     return (

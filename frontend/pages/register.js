@@ -3,7 +3,7 @@ import ThemeProvider from "../components/ThemeProvider";
 import {MyInput, MyAddressInput} from "../components/customField"
 import {Formik, Form} from "formik"
 import * as Yup from "yup"
-import Link from "next/Link"
+import Link from "next/link"
 import { withSession } from '../middlewares/session';
 import { parseCookies } from "../utils/parseCookies";
 import axios from 'axios';

@@ -1,6 +1,6 @@
 import React, {useContext} from 'react'
-import Head from 'next/Head'
-import Link from 'next/Link'
+import Head from 'next/head'
+import Link from 'next/link'
 import { useRouter } from 'next/router';
 import {ThemeContext} from './ThemeProvider';
 import axios from 'axios';

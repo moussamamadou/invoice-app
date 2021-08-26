@@ -4,7 +4,7 @@ import ThemeProvider from "../components/ThemeProvider";
 import {MyInput} from "../components/customField"
 import {Formik, Form} from "formik"
 import * as Yup from "yup"
-import Link from "next/Link"
+import Link from "next/link"
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { withSession } from '../middlewares/session';
