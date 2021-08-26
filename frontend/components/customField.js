@@ -78,7 +78,7 @@ function MyItemInput({items}) {
                             items?.map((item, index, tab) =>(
                                 <div className="my-item-input" key={index}>
                                     <div className="item-list-input name-input">
-                                        {index === 0 ? <label htmlFor={`items[${index}].name`}>Item Name</label> : null }
+                                        <label htmlFor={`items[${index}].name`} className={`item-input-${index}`}>Item Name</label>
                                         <Field  name={`items[${index}].name`}>
                                             {({form, field, meta}) => (
                                                 <input  type="text" {...field} className={meta.error && meta.touched ?'error': null}/>
@@ -86,7 +86,7 @@ function MyItemInput({items}) {
                                         </Field> 
                                     </div>                                   
                                     <div className="item-list-input quantity-imput">
-                                        {index === 0 ? <label htmlFor={`items[${index}].quantity`}>Qty.</label> : null }
+                                        <label htmlFor={`items[${index}].quantity`} className={`item-input-${index}`}>Qty.</label> 
                                         <Field  name={`items[${index}].quantity`}  min="1" >
                                             {({form,field, meta}) => (
                                                 <input type="number" {...field} className={meta.error && meta.touched ? 'error': null}/>
@@ -94,7 +94,7 @@ function MyItemInput({items}) {
                                         </Field>                                            
                                     </div>
                                     <div className="item-list-input price-input">
-                                        {index === 0 ? <label htmlFor={`items[${index}].price`}>Price</label> : null }
+                                        <label htmlFor={`items[${index}].price`} className={`item-input-${index}`}>Price</label>
                                         <Field  name={`items[${index}].price`}  min="0">
                                             {({form,field, meta}) => (
                                                 <input type="number" {...field} className={meta.error && meta.touched ? 'error': null}/>
@@ -102,11 +102,11 @@ function MyItemInput({items}) {
                                         </Field>                                        
                                     </div>
                                     <div className="item-list-input total-input">   
-                                    {index === 0 ? <label htmlFor={`items[${index}].price`}>Total</label> : null }
+                                        <label htmlFor={`items[${index}].price`} className={`item-input-${index}`}>Total</label>
                                         <h4 className='Total'>{Math.round(items[index].price * items[index].quantity*100)/100}</h4>                               
                                     </div>
                                     <div className="item-list-input delete-input">  
-                                        {index === 0 ? <label htmlFor={`items[${index}].price`}>&nbsp;</label> : null }
+                                        <label htmlFor={`items[${index}].price`} className={`item-input-${index}`}>&nbsp;</label>
                                         <button type='button' className="btn-icon" onClick={() => arrayHelpers.form.values.items.length > 0 ? arrayHelpers.remove(index) : null}>
                                         <svg width="13" height="16" xmlns="http://www.w3.org/2000/svg"><path d="M11.583 3.556v10.666c0 .982-.795 1.778-1.777 1.778H2.694a1.777 1.777 0 01-1.777-1.778V3.556h10.666zM8.473 0l.888.889h3.111v1.778H.028V.889h3.11L4.029 0h4.444z" fill="#888EB0" fillRule="nonzero"/></svg>
                                         </button>                                             

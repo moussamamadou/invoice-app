@@ -30,16 +30,16 @@ export default function InvoiceList({invoices, selected}) {
                     .map((invoice, key) => (
                         <Link href={`/invoice/${invoice.id}`} key={key}>
                             <a className="invoice-item">
-                                <div className="invoice-item-detail">
+                                <div className="invoice-item-detail item-detail-ref">
                                     <h4>#{invoice.reference}</h4>
                                 </div>
-                                <div className="invoice-item-detail">
+                                <div className="invoice-item-detail item-detail-date">
                                     <p>Due <time dateTime="2018-07-07">{moment(new Date(invoice.invoiceDate)).add(invoice.paymentTerms, 'days').format('DD MMM yyyy')}</time></p>
                                 </div> 
-                                <div className="invoice-item-detail">
-                                    <p>{invoice.username}</p>
+                                <div className="invoice-item-detail item-detail-name">
+                                    <p>{invoice.clientName}</p>
                                 </div>
-                                <div className="invoice-item-detail">
+                                <div className="invoice-item-detail item-detail-total">
                                     <h4>€ 
                                         {
                                             (invoice.items.reduce((acc, curr) => {
@@ -48,7 +48,7 @@ export default function InvoiceList({invoices, selected}) {
                                         } 
                                     </h4>
                                 </div>
-                                <div className="invoice-item-detail">
+                                <div className="invoice-item-detail  item-detail-status">
                                     <div className={`invoice-status ${invoice.status}`}>
                                         <svg height="10" width="10">
                                             <circle cx="5" cy="5" r="3"/>
@@ -56,7 +56,7 @@ export default function InvoiceList({invoices, selected}) {
                                         {invoice.status[0].toUpperCase() + invoice.status.substring(1)}
                                     </div>
                                 </div>
-                                <div className="invoice-item-detail">
+                                <div className="invoice-item-detail item-detail-arrow">
                                     <img src="/assets/icon-arrow-right.svg" alt="" className="icon-arrow-right"/>
                                 </div>
                             </a>

@@ -126,10 +126,10 @@ export default function InvoicePage({user, invoice, themeDarkInitial, ...props})
                             { 
                                 invoice.items?.map((item, key) => (
                                     <div className="invoice-item-body" key={key}>    
-                                        <div className="first-item"><h4>{item.name} </h4><p>{item.quantity} x € {item.price}</p></div>
-                                        <div><p>{item.quantity}</p></div>
-                                        <div><p>€ {(Math.round((item.price + Number.EPSILON) * 100) / 100).toFixed(2)}</p></div>
-                                        <div><h4>€ {(Math.round((item.price * item.quantity + Number.EPSILON) * 100) / 100).toFixed(2)}</h4></div>
+                                        <div className="first-item"><h4>{item.name} </h4><p>{item.quantity} x € {(Math.round((item.price + Number.EPSILON) * 100) / 100).toFixed(2)}</p></div>
+                                        <div className="second-item"><p>{item.quantity}</p></div>
+                                        <div className="third-item"><p>€ {(Math.round((item.price + Number.EPSILON) * 100) / 100).toFixed(2)}</p></div>
+                                        <div className="fourth-item"><h4>€ {(Math.round((item.price * item.quantity + Number.EPSILON) * 100) / 100).toFixed(2)}</h4></div>
                                     </div>   
                                 ))
                             }
