@@ -11,7 +11,7 @@ import sunImg from '../public/assets/icon-sun.svg'
 import logoImg from '../public/assets/logo.svg'
 import logoutImg from '../public/assets/icon-logout.svg'
 
-export default function PublicLayout({children}) {
+export default function PrivateLayout({children}) {
     const router = useRouter();
     const theme = useContext(ThemeContext);
   
