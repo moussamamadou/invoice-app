@@ -23,7 +23,7 @@
  
 /*** Themes Variables ***/
 .theme-light {
-    --bg-color: #F8F8FB ;
+    --bg-color: #f5f5fc ;
     --nav-color: #373B53;
     --title-color: #0C0E16;
     --text-color: #7E88C3 ;
@@ -36,9 +36,10 @@
     --default-text-hover: #7E88C3;
     --item-color:#FFFFFF;
     --modal-color:#FFFFFF;
-    --item-content-bg: var(--default-color); 
+    --item-content-bg: #f5f6fc; 
     --item-footer-bg: #373B53;
     --draft-color: #373B53;
+    --user-bg:white;
 }
 
 .theme-dark {
@@ -58,6 +59,7 @@
     --item-content-bg: var(--secondary-color-hover); 
     --item-footer-bg: #0C0E16;
     --draft-color: #DFE3FA;
+    --user-bg:var(--secondary-color-hover); 
 }
 .rmsc {
     --rmsc-main: var(--input-bg) !important;
@@ -273,7 +275,7 @@ h4{
     word-spacing: -0.25px;
 }
 p{
-    font-size: 12px;
+    // font-size: 12px;
     font-weight: 500;
     line-height: 18px;
     word-spacing: -0.25px;
@@ -341,6 +343,17 @@ select{
         padding: 15px;
         width: 100%;
     }
+}
+.item-list-input{
+    margin: 0;
+    label{
+        display: none;
+        &.item-input-0{
+            display: inline-block;
+        }
+    }
+    
+
 }
 .error{   
     color: var(--delete-color);  
@@ -481,7 +494,7 @@ a.invoice-item{
     gap: 20px;
 }
 .user-container{
-    background-color: var(--item-content-bg);
+    background-color: var(--user-bg);
     box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.1);   
     border-radius: var(--default-radius);
     padding: 50px;
@@ -539,9 +552,6 @@ a.invoice-item{
     margin-bottom: 15px;
 }
 .invoice-client{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
     display: grid;
     grid-template-columns: repeat(3, 1fr);    
     margin-bottom: 15px;
@@ -640,7 +650,8 @@ a.invoice-item{
     top: 0;
     left: 0;
     bottom: 0;
-    width: 630px;   
+    width: 100%;   
+    max-width: 630px;   
     height: 100vh; 
     padding: 0px;
     margin: auto;
@@ -706,12 +717,13 @@ a.invoice-item{
 
 .my-item-input{
     display: grid;
-    grid-gap: 20px;
+    grid-gap: 10px;
     grid-template-areas: 
     "name-input quantity-imput price-input total-input delete-input"
     ;
     .name-input{
         grid-area: name-input;
+        width: 100%;
     }
     .quantity-imput{
         grid-area: quantity-imput;
@@ -760,6 +772,7 @@ a.invoice-item{
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-left: -100px;
     .logo-wrapper{
         display: flex;
         width: 70px;
@@ -777,5 +790,222 @@ a.invoice-item{
     button, h2, p, .logo-wrapper {
         margin-bottom: 20px;
     }
+}
 
+@media (max-width: 620px){
+    body {
+        font-size: 10px;
+    }
+    header{
+        height: 100px;
+        width: 100vw;
+        flex-direction: row;
+        position: pixed;
+        border-radius: 0;
+        nav{
+            ul{
+                display: flex;
+            }
+            li{
+                width: 75px;
+            }
+        }
+    }
+    main{
+        padding: 125px 25px 25px 25px ;
+        min-width: 100vw;
+    }
+    .rmsc.multi-select{
+        width: 150px;
+    }
+    .main-wrapper {
+        .home-header {
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 30px;
+            .home-header-title{
+                margin-bottom: 15px;
+            }
+        }
+    }
+    button{
+        font-size: 11px;
+    }
+    .color-primary{
+        margin: 10px 0;
+    }
+    
+    .my-address-input{
+        grid-template-areas: 
+        "street street"
+        "post-code post-code"
+        "city country";
+        .my-input{
+            margin: 0;
+        }
+    }
+    .my-date-input{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 0;
+    }
+    .my-item-input{
+        display: grid;
+        grid-gap: 10px;
+        row-gap: 20px;
+        grid-template-areas: 
+        "name-input name-input name-input name-input "
+        "quantity-imput price-input total-input delete-input"
+        ;
+        margin-bottom: 20px;
+        .quantity-imput,
+        .price-input,
+        .total-input,
+        .delete-input{
+            width: auto;
+            button{
+                margin: 0;
+            }
+        }
+        .total-input{
+            h4{
+                margin: 0;
+            }
+        }
+    }
+    .item-list-input{
+        margin-bottom: 0px;
+        label{
+            display: inline-block;
+        }
+        input{
+            margin: 0;
+        }
+    }
+    .modal-editor{
+        width: 100%;
+    }
+    
+    a.invoice-item{  
+        grid-template-columns : 1fr 1fr;
+        grid-template-areas: 
+        "item-detail-ref item-detail-name"
+        "item-detail-date item-detail-status"
+        "item-detail-price item-detail-status"
+        "item-detail-arrow item-detail-arrow"
+        ;
+        .item-detail-ref{
+            grid-area: item-detail-ref;
+            margin-bottom: 15px;
+        }
+        .item-detail-name{
+            grid-area: item-detail-name;
+            margin-bottom: 15px;
+        }
+        .item-detail-date{
+            grid-area: item-detail-date;
+        }
+        .item-detail-status{
+            grid-area: item-detail-status;
+        }
+        .item-detail-price{
+            grid-area: item-detail-price;
+        }
+        .item-detail-ref{
+            grid-area: item-detail-ref;
+        }
+        .item-detail-arrow{
+            grid-area: item-detail-arrow;
+            display: none;
+        }
+    }
+    .overlay-editor{
+        left: 0px;
+    }
+    .modal-theme{
+        padding: 125px 0 28px 0;
+        h2{
+            padding: 0 30px;
+        }
+        form{
+            &>div{
+                padding: 15px 30px!important;
+            }
+        }
+    }
+    
+    .invoice-header{
+        .invoice-action{            
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100vw;
+            height: 75px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--input-bg);
+        }
+        .invoice-status-wrapper{
+            width: 100%;
+            justify-content: space-between;
+        }
+    }
+    .invoice-detail{
+        margin-bottom: 75px;
+    }
+    .invoice-content{
+        padding: 25px;
+    }
+    .invoice-item-content, .invoice-item-footer{
+        padding: 25px;
+    }
+    .invoice-item-content {
+        padding-bottom: 0;
+        .invoice-item-head{
+            display: none;
+        }
+        .invoice-item-body {
+            grid-template-columns: repeat(2, 1fr);
+            .first-item p{
+                display: inline-block;
+            }            
+            .second-item, .third-item {
+                display: none;
+            }          
+            .fourth-item {
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+            }            
+        }
+    }
+    
+    
+    .invoice-provider{
+        flex-direction: column;
+    }
+    
+    .invoice-client{
+        grid-template-columns: repeat(2, 1fr);    
+        gap: 10px;
+        margin-bottom: 15px;
+        grid-template-areas: 
+            "invoice-date invoice-billto"
+            "invoice-sendto invoice-sendto"
+        ;
+        .invoice-date{
+            grid-area: invoice-date;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .invoice-billto{
+            grid-area: invoice-billto;
+        }
+        .invoice-sendto{
+            grid-area: invoice-sendto;
+        }
+    }
 }
