@@ -7,6 +7,8 @@ import { withSession } from '../middlewares/session';
 import { parseCookies } from "../utils/parseCookies";
 import axios from 'axios'
 import { useRouter } from 'next/router';
+import Image from 'next/image'
+import arrowImg from '../public/assets/icon-arrow-left.svg'
 
 export default function User(props) {
   const router = useRouter();
@@ -55,12 +57,10 @@ export default function User(props) {
         <div className="user">
           <div className="back-link">
               <a href="#" onClick={() => router.push("/")}>
-                  <img src="/assets/icon-arrow-left.svg" alt="" className="icon-arrow-left" /> Go back    
+                  <Image src={arrowImg} alt="" className="icon-arrow-left" />&nbsp;&nbsp;&nbsp;Go back   
               </a>                 
           </div>
           <div className="user-container">
-          
-          {/* <img src="/assets/image-avatar.jpg" alt="logo" className="Profile Picture" /> */}
             <Formik
               initialValues={initialValues}
               validationSchema={registerSchema}

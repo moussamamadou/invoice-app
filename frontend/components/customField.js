@@ -2,6 +2,8 @@ import React, {useContext} from 'react'
 import Modal from 'react-modal';
 import {Field, ErrorMessage, FieldArray} from "formik"
 import {ThemeContext} from "./ThemeProvider";
+import Image from 'next/image'
+import plusImg from '../public/assets/icon-plus.svg'
 
 function MyInput({label, myClass ='', ...props}) {
 
@@ -120,7 +122,7 @@ function MyItemInput({items}) {
                             : null
                         }
                         <button type='button' className="btn-default add-input" onClick={() => arrayHelpers.push({ name: '', quantity:1, price: 0.00})}>
-                            <img src="/assets/icon-plus.svg" alt="Delete Item" /> Add item 
+                            <Image src={plusImg} alt="Delete Item" />&nbsp;&nbsp;&nbsp;Add item   
                         </button>   
                     </>
                 )}

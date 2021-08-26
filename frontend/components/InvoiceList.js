@@ -3,6 +3,7 @@ import Link from 'next/Link'
 import Image from 'next/image'
 import moment from 'moment'
 import arrowImg from '../public/assets/icon-arrow-right.svg'
+import isEmptyImg from '../public/assets/illustration-empty.svg'
 
 export default function InvoiceList({invoices, selected}) {
 
@@ -69,8 +70,7 @@ export default function InvoiceList({invoices, selected}) {
                     filteredInvoices.length === 0 ? 
                         <div className="is-empty">
                             <div className="is-empty-container">
-                                <img src="/assets/illustration-empty.svg" alt="" />
-                                <h2>There is nothing here</h2>
+                                <Image src={isEmptyImg} alt="Nothing here" /> <h2>There is nothing here</h2>
                                 <p>Create an invoice by clicking the New Invoice button and get started</p>
                             </div>
                         </div>
