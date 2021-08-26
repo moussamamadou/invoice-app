@@ -8,6 +8,8 @@ import { withSession } from '../middlewares/session';
 import { parseCookies } from "../utils/parseCookies";
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import Image from 'next/image'
+import logoImg from '../public/assets/logo.svg'
 
 export default function Register({themeDarkInitial}) {
   const router = useRouter();
@@ -43,7 +45,7 @@ export default function Register({themeDarkInitial}) {
       <PublicLayout>
         <div className="register-container">
           <div className="logo-wrapper">
-            <img src="/assets/logo.svg" alt="logo" className="logoImage" />
+            <Image src={logoImg} alt="logo" className="logoImage" />
           </div>
           <h2>Invoice App</h2>
           <Formik

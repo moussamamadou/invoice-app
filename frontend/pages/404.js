@@ -1,5 +1,7 @@
 import Link from 'next/Link'
+import Image from 'next/image'
 import PublicLayout from "../components/PublicLayout"
+import isEmptyImg from '../public/assets/illustration-empty.svg'
 
 export default function FourOhFour() {
     return(  
@@ -8,7 +10,7 @@ export default function FourOhFour() {
                 <h1>404 - Page Not Found</h1>
                 <div className="is-empty">
                     <div className="is-empty-container">
-                        <img src="/assets/illustration-empty.svg" alt="" />
+                        <Image src={isEmptyImg} alt="Nothing here" />
                         <h2>There is nothing here</h2>
                         <p>You are lost in the parallel invoice dimension</p>        
                         <Link href="/"><a>Go back home</a></Link>

@@ -7,6 +7,8 @@ import MultiSelect from "react-multi-select-component";
 import { withSession } from '../middlewares/session';
 import { parseCookies } from "../utils/parseCookies";
 import { getInvoices } from "./api/invoice"
+import Image from 'next/image'
+import plusImg from '../public/assets/icon-plus.svg'
 
 
 export default function Home(props) {
@@ -45,7 +47,7 @@ export default function Home(props) {
               className="btn-primary" 
               onClick={() => setEditorModalIsOpen(true)} 
             >
-              <img src="/assets/icon-plus.svg" alt="" /> New Invoice
+              <Image src={plusImg} alt="" width={10} height={10} /> &nbsp;&nbsp; New Invoice
             </button>
           </div>
         </div>
@@ -81,7 +83,7 @@ export const  getServerSideProps = withSession(async(context) => {
   return {
     props: {
       user: user || null,
-      invoices: invoices,
+      invoices: invoices || null,
       themeDarkInitial: cookies.themeDark || false
     }
   }

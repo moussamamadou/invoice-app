@@ -1,6 +1,8 @@
 import React , {useState, useRef, useEffect} from 'react'
 import Link from 'next/Link'
+import Image from 'next/image'
 import moment from 'moment'
+import arrowImg from '../public/assets/icon-arrow-right.svg'
 
 export default function InvoiceList({invoices, selected}) {
 
@@ -57,7 +59,7 @@ export default function InvoiceList({invoices, selected}) {
                                     </div>
                                 </div>
                                 <div className="invoice-item-detail item-detail-arrow">
-                                    <img src="/assets/icon-arrow-right.svg" alt="" className="icon-arrow-right"/>
+                                    <Image src={arrowImg} alt="" className="icon-arrow-right" />                
                                 </div>
                             </a>
                         </Link>

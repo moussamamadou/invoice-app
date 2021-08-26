@@ -1,6 +1,6 @@
 import React, {useState, useContext} from "react";
 import { useRouter } from 'next/router';
-import Link from 'next/Link';
+import Image from 'next/image'
 import Modal from 'react-modal';
 import PrivateLayout from "../../components/PrivateLayout";
 import ThemeProvider from "../../components/ThemeProvider";
@@ -10,6 +10,7 @@ import { withSession } from '../../middlewares/session';
 import { getInvoice, deleteInvoice, updateInvoice } from "../api/invoice";
 import { parseCookies } from "../../utils/parseCookies";
 import moment from 'moment'
+import arrowImg from '../../public/assets/icon-arrow-left.svg'
 
 Modal.setAppElement('#__next');
 
@@ -45,8 +46,8 @@ export default function InvoicePage({user, invoice, themeDarkInitial, ...props})
         <PrivateLayout>
             <div className="invoice-detail">
                 <div className="back-link">
-                    <a onClick={() => router.push("/")}>
-                        <img src="/assets/icon-arrow-left.svg" alt="" className="icon-arrow-left" /> Go back    
+                    <a onClick={() => router.push("/")}> 
+                    <Image src={arrowImg} alt="" className="icon-arrow-left" />&nbsp;&nbsp;&nbsp;Go back    
                     </a>                 
                 </div>
                 <div className="invoice-header">
@@ -186,7 +187,7 @@ export const  getServerSideProps = withSession(async(context) => {
     return {
       props: {
         user: user || null,
-        invoice: invoice,
+        invoice: invoice || null,
         themeDarkInitial: cookies.themeDark || false
       }
     }

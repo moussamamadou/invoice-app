@@ -4,6 +4,12 @@ import Link from 'next/Link'
 import { useRouter } from 'next/router';
 import {ThemeContext} from './ThemeProvider';
 import axios from 'axios';
+import Image from 'next/image'
+import profileImg from '../public/assets/icon-profile.svg'
+import moonImg from '../public/assets/icon-moon.svg'
+import sunImg from '../public/assets/icon-sun.svg'
+import logoImg from '../public/assets/logo.svg'
+import logoutImg from '../public/assets/icon-logout.svg'
 
 export default function PublicLayout({children}) {
     const router = useRouter();
@@ -32,21 +38,33 @@ export default function PublicLayout({children}) {
             </Head>
             <header>
                 <Link href="/">
-                    <a  className="logo"><img src="/assets/logo.svg" alt="logo" className="logoImage" /></a>
+                    <a  className="logo">
+                        <Image src={logoImg} alt="logo" className="logoImage" />
+                    </a>
                 </Link>
                 <nav>
                     <ul>
                         <li>
                             <a className="themeToggle" onClick={toggleTheme}>
                                 {theme.themeDark ? (
-                                    <img src="/assets/icon-moon.svg" alt="Light Mode" />
+                                    <Image src={moonImg} alt="Light Mode"/>
                                 ) : (
-                                    <img src="/assets/icon-sun.svg" alt="Dark Mode" />
+                                    <Image src={sunImg} alt="Dark Mode" />
                                 )}                              
                             </a>
                         </li>
-                        <li><a href="" className="themeToggle" href="/api/logout" onClick={onLogout}><img src="/assets/icon-logout.svg" alt="Dark Mode" /></a></li>
-                        <li><Link href="/user" ><a className="profile-link"><img src="/assets/icon-profile.svg" alt="Profile Image" className="profileImage"/></a></Link></li>
+                        <li>
+                            <a href="" className="themeToggle" href="/api/logout" onClick={onLogout}>
+                                <Image src={logoutImg} alt="Log out" width={30} height={30}/>
+                            </a>
+                        </li>
+                        <li>
+                            <Link href="/user" >
+                                <a className="profile-link">
+                                    <Image src={profileImg} alt="Profile Image"  className="profileImage"/>
+                                </a>
+                            </Link>
+                        </li>
                     </ul>                
                 </nav>
             </header>

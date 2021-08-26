@@ -9,6 +9,8 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import { withSession } from '../middlewares/session';
 import { parseCookies } from "../utils/parseCookies";
+import Image from 'next/image'
+import logoImg from '../public/assets/logo.svg'
 
 export default function Login({themeDarkInitial}) {
   const router = useRouter();
@@ -43,8 +45,8 @@ export default function Login({themeDarkInitial}) {
     <ThemeProvider themeDarkInitial={themeDarkInitial}>
       <PublicLayout>
         <div className="login-container">
-          <div className="logo-wrapper">
-            <img src="/assets/logo.svg" alt="logo" className="logoImage" />
+          <div className="logo-wrapper">          
+            <Image src={logoImg} alt="logo" className="logoImage" />
           </div>
           <h2>Invoice App</h2>
           
